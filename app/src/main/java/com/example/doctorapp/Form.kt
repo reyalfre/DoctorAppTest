@@ -11,6 +11,9 @@ import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import java.util.*
 
 class Form : AppCompatActivity() {
@@ -18,6 +21,9 @@ class Form : AppCompatActivity() {
     private lateinit var DOB: EditText
     private lateinit var Contact: EditText
     private lateinit var reason: EditText
+    private lateinit var gender: RadioGroup
+
+    private var db = Firebase.firestore
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,23 +33,47 @@ class Form : AppCompatActivity() {
         DOB = findViewById(R.id.DOB)
         Contact = findViewById(R.id.Contact)
         reason = findViewById(R.id.reason)
-        val gender = findViewById<RadioGroup>(R.id.radioGroup)
+        gender = findViewById(R.id.radioGroup)
         val button = findViewById<Button>(R.id.button)
         val backbtn = findViewById<ImageButton>(R.id.backbtn)
 
-        val selectedID: Int = gender!!.checkedRadioButtonId
+        val selectedID: Int = gender.checkedRadioButtonId
         val radioButton = findViewById<RadioButton>(selectedID)
 
-        button.setOnClickListener{
-            startActivity( Intent(this, row_list::class.java)
-                .putExtra("PersonName", PersonName.text.toString())
-                .putExtra("DOB", DOB.text.toString())
-                .putExtra("Contact", Contact.text.toString())
-                .putExtra("reason", reason.text.toString())
-                .putExtra("gender", radioButton!!.text.toString()))
+        button.setOnClickListener {
+            val name = PersonName.text.toString().trim()
+            val date = DOB.text.toString().trim()
+            val number = Contact.text.toString().trim()
+            val desc = reason.text.toString().trim()
+            val gender1 = radioButton!!.text.toString().trim()
 
-            Toast.makeText(this, "Form Submitted", Toast.LENGTH_SHORT).show()
+
+            val userMap = hashMapOf(
+                "iname" to name,
+                "idate" to date,
+                "inumber" to number,
+                "idesc" to desc,
+                "igender" to gender1
+            )
+            val userId = FirebaseAuth.getInstance().currentUser!!.uid
+            db.collection("user").document(userId).set(userMap).addOnSuccessListener {
+                Toast.makeText(this, "Data Saved", Toast.LENGTH_SHORT).show()
+                PersonName.text.clear()
+                DOB.text.clear()
+                Contact.text.clear()
+                reason.text.clear()
+
+                val intent = Intent(this, row_list::class.java)
+                startActivity(intent)
+                finish()
+
+            }.addOnFailureListener {
+                Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show()
+            }
         }
+
+
+
         backbtn.setOnClickListener{
             startActivity( Intent(this, DashboardActivity::class.java))
         }
@@ -63,6 +93,7 @@ class Form : AppCompatActivity() {
             // Display Selected date in textbox
             dob.setText("" + dayOfMonth + "/" + month + "/" + year)
         }, year, month, day)
+        dpd.datePicker.minDate = System.currentTimeMillis() - 1000
         dpd.show()
     }
 

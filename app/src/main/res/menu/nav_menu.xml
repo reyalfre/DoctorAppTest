@@ -2,6 +2,6 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="Share" android:id="@+id/share" android:icon="@drawable/share" android:enabled="true"/>
-    <item android:title="Setting" android:id="@+id/setting" android:icon="@drawable/setting"/>
+    <item android:title="History" android:id="@+id/history" android:icon="@drawable/baseline_history_24"/>
     <item android:title="Log Out" android:id="@+id/exit" android:icon="@drawable/ic_baseline_exit_to_app_24"/>
 </menu>
