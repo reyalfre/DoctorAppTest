@@ -18,10 +18,6 @@ class Form : AppCompatActivity() {
     private lateinit var DOB: EditText
     private lateinit var Contact: EditText
     private lateinit var reason: EditText
-    private lateinit var gender: RadioGroup
-
-
-
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,18 +27,20 @@ class Form : AppCompatActivity() {
         DOB = findViewById(R.id.DOB)
         Contact = findViewById(R.id.Contact)
         reason = findViewById(R.id.reason)
-        gender = findViewById(R.id.radioGroup)
+        val gender = findViewById<RadioGroup>(R.id.radioGroup)
         val button = findViewById<Button>(R.id.button)
         val backbtn = findViewById<ImageButton>(R.id.backbtn)
-        val selectedID = gender.checkedRadioButtonId
+
+        val selectedID: Int = gender!!.checkedRadioButtonId
         val radioButton = findViewById<RadioButton>(selectedID)
+
         button.setOnClickListener{
             startActivity( Intent(this, row_list::class.java)
                 .putExtra("PersonName", PersonName.text.toString())
                 .putExtra("DOB", DOB.text.toString())
                 .putExtra("Contact", Contact.text.toString())
                 .putExtra("reason", reason.text.toString())
-                .putExtra("gender", radioButton.text.toString()))
+                .putExtra("gender", radioButton!!.text.toString()))
 
             Toast.makeText(this, "Form Submitted", Toast.LENGTH_SHORT).show()
         }

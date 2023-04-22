@@ -28,11 +28,11 @@
         android:layout_height="wrap_content">
 
         <ImageButton
-            android:background="@null"
             android:id="@+id/menubtn"
             android:layout_width="45dp"
-            android:src="@drawable/menu"
-            android:layout_height="50dp"/>
+            android:layout_height="50dp"
+            android:background="@null"
+            android:src="@drawable/menu" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"

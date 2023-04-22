@@ -6,14 +6,17 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
@@ -50,6 +53,10 @@ class DashboardActivity : AppCompatActivity() {
         actionBarDrawerToggle =
             ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close)
 
+       menubtn!!.setOnClickListener {
+            drawerLayout!!.openDrawer(GravityCompat.START)
+       }
+
 
 
         searchbtn!!.setOnClickListener(View.OnClickListener {
@@ -72,10 +79,7 @@ class DashboardActivity : AppCompatActivity() {
             val intent = Intent(this, Form::class.java)
             startActivity(intent)
         })
-        menubtn!!.setOnClickListener {
-            actionBarDrawerToggle =
-                ActionBarDrawerToggle(this, drawerLayout, R.string.nav_open, R.string.nav_close)
-        }
+
         navView!!.setNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.exit -> {
@@ -87,19 +91,32 @@ class DashboardActivity : AppCompatActivity() {
             }
             true
         }
+        onBackPressedDispatcher.addCallback(this, callback)
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    override fun onBackPressed() {
-        if (pressedTime + 2000 > System.currentTimeMillis()) {
-            super.onBackPressed()
-            finish()
-        } else {
-            Toast.makeText(baseContext, "Press back again to exit", Toast.LENGTH_SHORT).show()
+    
+    val callback = object : OnBackPressedCallback(true){
+        override fun handleOnBackPressed() {
+            val drawerLayout = findViewById<DrawerLayout>(R.id.drawer)
+            if(drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                drawerLayout.closeDrawer(GravityCompat.START)
+            }
+            else{
+                if (pressedTime + 2000 > System.currentTimeMillis()) {
+                    finish()
+                } else {
+                    Toast.makeText(baseContext, "Press back again to exit", Toast.LENGTH_SHORT).show()
+                }
+                pressedTime = System.currentTimeMillis()
+            }
+
         }
-        pressedTime = System.currentTimeMillis()
+
     }
+
+
 
     private fun searchNet(words: String) {
         try {
