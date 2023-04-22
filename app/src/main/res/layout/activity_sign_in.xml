@@ -89,17 +89,18 @@
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
+    <Button
+        style="@style/Widget.Material3.Button.ElevatedButton"
         android:id="@+id/button"
-        android:layout_width="100dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
-        android:background="#7BAFED"
-        android:gravity="center"
+        app:strokeColor="@color/purple_200"
         android:text="Sign In"
         android:textColor="@color/black"
+        android:backgroundTint="@color/purple_200"
+        android:textSize="18dp"
         android:textStyle="bold"
-        app:backgroundTint="#7BAFED"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
