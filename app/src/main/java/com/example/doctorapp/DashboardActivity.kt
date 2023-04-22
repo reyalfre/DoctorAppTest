@@ -86,6 +86,7 @@ class DashboardActivity : AppCompatActivity() {
                     Firebase.auth.signOut()
                     val intent = Intent(this, SignInActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
 
             }
@@ -93,7 +94,6 @@ class DashboardActivity : AppCompatActivity() {
         }
         onBackPressedDispatcher.addCallback(this, callback)
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     
