@@ -5,6 +5,7 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E6B9B9"
     tools:context=".DashboardActivity">
 
     <androidx.core.widget.NestedScrollView

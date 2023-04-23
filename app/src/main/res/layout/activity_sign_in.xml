@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".SignInActivity">
 
 
@@ -56,6 +57,7 @@
         android:layout_marginTop="52dp"
         app:boxStrokeColor="#03A9F4"
         app:hintTextColor="@color/purple_200"
+        android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9">
@@ -66,6 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
+
             android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -82,6 +85,7 @@
         app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusTopStart="20dp"
         app:boxStrokeColor="#03A9F4"
+        android:textColorHint="@color/black"
         app:hintTextColor="@color/purple_200"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,6 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:textColorHint="@color/black"
             android:inputType="textPassword" />
     </com.google.android.material.textfield.TextInputLayout>
 

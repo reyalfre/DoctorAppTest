@@ -89,8 +89,8 @@ class DashboardActivity : AppCompatActivity() {
                     finish()
                 }
                 R.id.history -> {
-                    val intent = Intent(this, row_list::class.java)
-                    startActivity(intent)
+                    val intent1 = Intent(this, List::class.java)
+                    startActivity(intent1)
                     finish()
                 }
 
