@@ -30,6 +30,7 @@ class List : AppCompatActivity() {
 
         personArrayList = arrayListOf()
 
+        loading.visibility = View.VISIBLE
         db = FirebaseFirestore.getInstance()
         db.collection("user").get()
             .addOnSuccessListener {
@@ -41,7 +42,7 @@ class List : AppCompatActivity() {
                         }
                     }
                     personRecyclerView.adapter = RecycleViewAdapter(personArrayList)
-
+                    loading.visibility = View.GONE
                 }
             }
             .addOnFailureListener {
@@ -50,29 +51,5 @@ class List : AppCompatActivity() {
 
 
 
-    }
-
-    private fun getPersonData() {
-        personRecyclerView.visibility = View.GONE
-        loading.visibility = View.VISIBLE
-
-        val userId = FirebaseAuth.getInstance().currentUser!!.uid
-        val ref = db.collection("user").document(userId)
-
-        ref.get().addOnSuccessListener {
-            if (it!= null){
-                val name1 = it.data?.get("iname")?.toString()
-                val date1 = it.data?.get("idate")?.toString()
-                val phone1 = it.data?.get("inumber")?.toString()
-                val desc1 = it.data?.get("idesc")?.toString()
-                val gender1 = it.data?.get("igender")?.toString()
-
-                personArrayList.add(PersonModel(name1!!, date1!!, phone1!!, desc1!!, gender1!!))
-                personRecyclerView.adapter = RecycleViewAdapter(personArrayList)
-                personRecyclerView.visibility = View.VISIBLE
-                loading.visibility = View.GONE
-
-            }
-        }
     }
 }
