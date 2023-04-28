@@ -146,6 +146,7 @@
         android:layout_marginBottom="52dp"
         android:text="&quot;HeyDoc&quot;"
         android:textSize="50dp"
+        android:textColor="@color/purple_200"
         app:layout_constraintBottom_toTopOf="@+id/emailLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

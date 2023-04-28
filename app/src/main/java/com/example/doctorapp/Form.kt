@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
+import kotlin.collections.List
 
 class Form : AppCompatActivity() {
     private lateinit var PersonName: EditText
@@ -117,8 +118,6 @@ class Form : AppCompatActivity() {
             val importance = android.app.NotificationManager.IMPORTANCE_DEFAULT
             val channel = android.app.NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText
-
-
             }
             // Register the channel with the system
             val notificationManager: android.app.NotificationManager = getSystemService(android.app.NotificationManager::class.java)
@@ -128,7 +127,7 @@ class Form : AppCompatActivity() {
 
 
     private fun sendNotification(){
-        val intent = Intent(this, row_list::class.java).apply {
+        val intent = Intent(this, List::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -143,7 +142,7 @@ class Form : AppCompatActivity() {
 
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_launcher_background)
+            .setSmallIcon(R.drawable.docsign)
             .setContentTitle("Appointment Booked")
             .setContentText("Tap to view your entered details")
             .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
